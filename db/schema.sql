@@ -1,0 +1,56 @@
+----- DATABASE SCHEMA DESIGN ----
+
+-- CHECKS IF THE DATABASE EMS(EMPLOYEE MANAGEMENT SYSTEM) ------
+
+DROP DATABASE IF EXISTS ems;
+
+-- BUILDING DATABASE EMS (EMPLOYEE MANAGEMENT SYSTEM)
+
+CREATE DATABASE ems;
+
+-- THIS WILL USE EMS(EMPLOYEE MANAGEMENT SYSTEM) ---
+
+USE ems;
+
+-- BUILD DEPARTMENT TABLE
+
+CREATE TABLE department (
+    -- DEPARTMENT ID
+    id INTEGER NOT NULL auto_increment PRIMARY KEY,
+    -- DEPARTMENT NAME
+    name VARCHAR(30)
+
+);
+
+-- BUILD ROLE TABLE
+CREATE TABLE role (
+    -- ROLE ID
+    id INTEGER NOT NULL auto_increment PRIMARY KEY,
+    -- ROLE TITLE
+    title VARCHAR(30) NOT NULL,
+    -- ROLE SALARY
+    salary DECIMAL(10,2) NOT NULL,
+    -- ROLE DEPARTMENT ID
+    department_id INTEGER NOT NULL,
+    -- A COLUMN OF GROUPS OF COLUMNS IN TABLE THAT LINKS TO ANOTHER TABLE.https://www.w3schools.com/sql/sql_foreignkey.asp ---
+    -- ROLE DEPARTMENT ID LINK
+    FOREIGN KEY(department_id) REFERENCES department(id)
+);
+
+-- BUILD EMPLOYEE TABLE
+CREATE TABLE employee (
+    -- EMPLOYEE ID
+    id INTEGER NOT NULL auto_increment PRIMARY KEY,
+    -- EMPLOYEE FIRST NAME
+    first_name VARCHAR(30),
+    -- EMPLOYEE LAST NAME
+    last_name VARCHAR(30),
+    -- EMPLOYEE ROLE ID
+    role_id INTEGER,
+    -- MANAGER ID
+    manager_id INTEGER,
+    -- EMPLOYEE ROLE ID LINK
+    FOREIGN KEY(role_id) REFERENCES role(id),
+    -- EMPLOYEE MANAGER ID LINK
+    FOREIGN KEY(manager_id) REFERENCES role(id)
+);
